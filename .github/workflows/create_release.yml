@@ -14,7 +14,7 @@ on:
 
 jobs:
   release:
-    if: ${{ github.repository == 'pytorch/pytorch' }}
+    if: ${{ github.repository == 'laurentsimon/pytorch' }}
     outputs:
       hashes: ${{ steps.hash.outputs.hashes }}
     name: Create Release
