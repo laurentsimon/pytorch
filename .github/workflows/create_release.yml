@@ -60,16 +60,16 @@ jobs:
         with:
           files: ${{env.PT_RELEASE_FILE}}
 
-provenance:
-  needs: [release]
-  permissions:
-    actions: read # To read the workflow path.
-    id-token: write # To sign the provenance.
-    contents: write # To add assets to a release.
-  uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.2.0
-  with:
-    base64-subjects: "${{ needs.release.outputs.hashes }}"
-    upload-assets: true # Optional: Upload to a new release
+  provenance:
+    needs: [release]
+    permissions:
+      actions: read # To read the workflow path.
+      id-token: write # To sign the provenance.
+      contents: write # To add assets to a release.
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.2.0
+    with:
+      base64-subjects: "${{ needs.release.outputs.hashes }}"
+      upload-assets: true # Optional: Upload to a new release
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}-${{ github.event_name == 'workflow_dispatch' }}
