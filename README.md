@@ -1,5 +1,5 @@
 ![PyTorch Logo](https://github.com/pytorch/pytorch/blob/master/docs/source/_static/img/pytorch-logo-dark.png)
-
+[![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev/images/gh-badge-level3.svg)
 --------------------------------------------------------------------------------
 
 PyTorch is a Python package that provides two high-level features:
@@ -221,6 +221,25 @@ cd pytorch
 git submodule sync
 git submodule update --init --recursive --jobs 0
 ```
+
+You may alternatively download the tarball from the release assests .
+```shell
+VERSION=v1.12.1
+curl "https://github.com/pytorch/pytorch/releases/tag/$VERSION/pytorch-$VERSION.tar.gz" > "pytorch-$VERSION.tar.gz"
+```
+
+We generate [SLSA3 provenance](slsa.dev) using the OpenSSF's [slsa-framework/slsa-github-generator](https://github.com/slsa-framework/slsa-github-generator) for the tarball. To verify it:
+1. Install the verification tool from [slsa-framework/slsa-verifier#installation](https://github.com/slsa-framework/slsa-verifier#installation)
+1. Download the file named `attestation.intoto.jsonl` from the release:
+```shell
+curl "https://github.com/pytorch/pytorch/releases/tag/$VERSION/attestation.intoto.jsonl" > "attestation.intoto.jsonl"
+```
+1. Run:
+```shell
+$ slsa-verifier -artifact-path "pytorch-$VERSION.tar.gz" -provenance attestation.intoto.jsonl -source https://github.com/pytorch/pytorch -tag "$VERSION"
+  PASSED: Verified SLSA provenance
+```
+
 
 #### Install PyTorch
 **On Linux**
