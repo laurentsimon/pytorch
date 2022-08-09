@@ -53,7 +53,7 @@ jobs:
         run: |
             set -euo pipefail
 
-            echo "::set-output name=hashes::$(sha256sum $PT_RELEASE_NAME | base64 -w0)"
+            echo "::set-output name=hashes::$(sha256sum $PT_RELEASE_FILE | base64 -w0)"
       - name: Upload source distribution
         if: ${{ github.event_name == 'release' }}
         uses: softprops/action-gh-release@v1
