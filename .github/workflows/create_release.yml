@@ -61,7 +61,7 @@ jobs:
           files: ${{env.PT_RELEASE_FILE}}
 
   provenance:
-    if: ${{ github.repository == 'laurentsimon/pytorch' }}
+    if: ${{ github.repository == 'laurentsimon/pytorch' && github.event_name == 'release' }}
     needs: [release]
     permissions:
       actions: read # To read the workflow path.
