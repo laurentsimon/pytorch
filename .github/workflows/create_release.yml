@@ -55,7 +55,7 @@ jobs:
 
             echo "::set-output name=hashes::$(sha256sum $PT_RELEASE_FILE | base64 -w0)"
       - name: Upload source distribution
-        if: ${{ github.event_name == 'release' }}
+        #if: ${{ github.event_name == 'release' }}
         uses: softprops/action-gh-release@v1
         with:
           files: ${{env.PT_RELEASE_FILE}}
